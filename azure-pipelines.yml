@@ -13,8 +13,6 @@ variables:
   value: 'job_1'
 - name: artifact_version
   value: '0.1'
-- name: docker_image_name
-  value: 'cicd4talend'
 
 steps:
   - task: DownloadSecureFile@1
@@ -32,7 +30,6 @@ steps:
         mavenPomFile: '$(project_name)/poms/pom.xml' 
         mavenOptions: |
           -Dlicense.path=$(license.secureFilePath)
-          -Dupdatesite.path=$(updatesite_path)
           -Dservice.url=$(cloud_url)
           -Dcloud.publisher.screenshot=true
           -Dcloud.publisher.environment=default
