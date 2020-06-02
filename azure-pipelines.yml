@@ -1,12 +1,12 @@
 # Talend CI/CD on Azure DevOps
-# Build Pipeline for building and publishing on Talend Cloud
+# Build Pipeline for building and publishing on Nexus
 
 trigger: none
 pool:
  vmImage: 'ubuntu-latest'
 
 variables:
-- group: TALEND_CICD_VARS
+- group: Talend Variables
 - name: project_name
   value: 'TC_AZURE_DEVOPS'
 - name: artifact_name
@@ -31,10 +31,7 @@ steps:
         mavenOptions: |
           -Dlicense.path=$(license.secureFilePath)
           -Dupdatesite.path=$(updatesite_path)
-          -Dservice.url=$(cloud_url)
-          -Dcloud.publisher.screenshot=true
-          -Dcloud.publisher.environment=default
-          -Dcloud.publisher.workspace=Personal
+          -DaltDeploymentRepository=releases::default::$(nexus_url)/repository/releases/
           -Xmx3096m -Xms1024m
-        options: '--settings $(settings_xml.secureFilePath) -Pcloud-publisher -pl jobs/process/$(artifact_name)_$(artifact_version) -am'
+        options: '--settings $(settings_xml.secureFilePath) -pl jobs/process/$(artifact_name)_$(artifact_version) -am'
         goals: 'deploy'
