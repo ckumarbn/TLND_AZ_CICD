@@ -6,7 +6,7 @@ pool:
  vmImage: 'ubuntu-latest'
 
 variables:
-- group: Talend Variables
+- group: TALEND_CICD_VARS
 - name: project_name
   value: 'TC_AZURE_DEVOPS'
 - name: artifact_name
